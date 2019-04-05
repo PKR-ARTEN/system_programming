@@ -1,2 +1,2 @@
-char *dir;
-char *par_dir=;
+char *dir="";
+char *par_dir="";
