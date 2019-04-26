@@ -5,11 +5,13 @@
 void print_prompt();
 void m_ls();
 void get_command(); //separate the command to type and path
+void m_mkdir();
 
 int main(){
 
 	char *e = "exit";
 	char *ls = "ls";
+	char *mkdir = "mkdir";
 	char *hello = "hello";
 	char *help1 = "help";
 	char *help2 = "-h";
@@ -29,10 +31,12 @@ int main(){
 			system("clear");
 			exit(0);
 		} else if(strcmp(command_t, ls)==0){
-			printf("show direcory\n");
-			m_ls(NULL);
+			m_ls(command_p);
 		} else if(strcmp(command_t, hello)==0){
 			printf("hello!\n");
+		} else if(strcmp(command_t, mkdir)==0){
+			printf("make directory\n");
+			m_mkdir(command_p);
 		} else if(strcmp(command_t, help1)==0 || strcmp(command_t, help2)==0){
 			printf("ls - show content of this folder\n");
 			printf("ls [path] - show content of path\n");
@@ -41,6 +45,8 @@ int main(){
 			printf("no command\n");
 			printf("If you need help, please enter \"help\" or \"-h\"\n");
 		}
+
+		printf("\n");
 	}
 	
 	return 0;
