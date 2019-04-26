@@ -10,6 +10,8 @@ int main(){
 	char *e = "exit";
 	char *ls = "ls";
 	char *hello = "hello";
+	char *help1 = "help";
+	char *help2 = "-h";
 	char *command;
 	char *command_c;
 
@@ -30,8 +32,13 @@ int main(){
 			m_ls(NULL);
 		} else if(strcmp(command_c, hello)==0){
 			printf("hello!\n");
+		} else if(strcmp(command_c, help1)==0 || strcmp(command_c, help2)==0){
+			printf("ls - show content of this folder\n");
+			printf("ls [path] - show content of path\n");
+			printf("exit - close this shell\n");
 		} else {
 			printf("no command\n");
+			printf("If you need help, please enter \"help\" or \"-h\"\n");
 		}
 	}
 	
