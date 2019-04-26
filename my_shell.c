@@ -4,6 +4,7 @@
 
 void print_prompt();
 void m_ls();
+void get_command(); //separate the command to type and path
 
 int main(){
 
@@ -12,27 +13,27 @@ int main(){
 	char *hello = "hello";
 	char *help1 = "help";
 	char *help2 = "-h";
-	char *command;
-	char *command_c;
+
+	char *command_t; //command_type
+	char *command_p; //command_path
 
 	system("clear");
 
 	while(1){
 
 		print_prompt();
-		
-		scanf("%s", command);
-		command_c = strdup(command);
 
-		if(strcmp(command_c, e)==0){
+		get_command(&command_t, &command_p);
+
+		if(strcmp(command_t, e)==0){
 			system("clear");
 			exit(0);
-		} else if(strcmp(command_c, ls)==0){
+		} else if(strcmp(command_t, ls)==0){
 			printf("show direcory\n");
 			m_ls(NULL);
-		} else if(strcmp(command_c, hello)==0){
+		} else if(strcmp(command_t, hello)==0){
 			printf("hello!\n");
-		} else if(strcmp(command_c, help1)==0 || strcmp(command_c, help2)==0){
+		} else if(strcmp(command_t, help1)==0 || strcmp(command_t, help2)==0){
 			printf("ls - show content of this folder\n");
 			printf("ls [path] - show content of path\n");
 			printf("exit - close this shell\n");
