@@ -4,3 +4,7 @@
 #define ANSI_COLOR_MAGENTA	"\x1b[35m"
 #define ANSI_COLOR_CYAN		"\x1b[36m"
 #define ANSI_COLOR_RESET	"\x1b[0m"
+
+#define ANSI_BOLD_TEXT		"\e[1m"
+#define ANSI_ITALIC_TEXT	"\e[3m"
+#define ANSI_RESET_TEXT		"\e[0m"
