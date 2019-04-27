@@ -14,7 +14,7 @@ int remove_directory();
 void m_rm(char *original){
 	char *path[50];
 	int n;
-
+	
 	if((n=get_path(original, &path)) == 0) {
 		printf(ANSI_COLOR_RED "please input file name or directory name" ANSI_COLOR_RESET "\n");
 		return;
@@ -106,6 +106,23 @@ void m_rm(char *original){
 			}
 		}
 	}
+}
+
+int m_rm2(char *path){
+	struct stat sb;
+	stat(path, &sb);
+
+	if(S_ISDIR(sb.st_mode)){
+		if(remove_directory(path)<0){
+			return -1;
+		}
+	} else {
+		if(unlink(path)<0){
+			return -1;
+		}
+	}
+
+	return 0;
 }
 
 int remove_directory(const char *path){

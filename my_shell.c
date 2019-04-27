@@ -17,6 +17,7 @@ void m_rm();
 void m_cp();
 void m_execute();
 void m_kill();
+void m_mv();
 
 int main(){
 
@@ -27,6 +28,7 @@ int main(){
 	char *cd = "cd";
 	char *rm = "rm";
 	char *cp = "cp";
+	char *mv = "mv";
 
 	char *hello1 = "hello";
 	char *hello2 = "hello?";
@@ -75,6 +77,8 @@ int main(){
             			m_ls(command_p);
 					} else if(strncmp(command_t, execute, 2)==0){
 						m_execute(command_t, command_p);
+					} else if(strcmp(command_t, mv)==0){
+						m_mv(command_p);
 					} else if(strcmp(command_t, cp)==0){
 						m_cp(command_p);
 					} else if(strcmp(command_t, kill)==0){
@@ -95,8 +99,12 @@ int main(){
 			            printf("\t -r delete all, including non-empty directories\n");
             			printf("\t -d delete only directory\n");
 			            printf("\t -f delete only file\n");
+						printf("mv [original] [destination] - move original to destination\n");
+						printf("cp [original] [destination] - copy original to destination\n");
 			            printf("cat [file1] [file2] ... - show content of files\n");
 			            printf("cd [path] - change directory\n");
+						printf("./[program name] & - execute program in background\n");
+						printf("kill [pid] - kill process\n");
 			            printf("cls or clear - clear window\n");
 			            printf("hello?\n");
 			            printf("exit - close this shell\n");
