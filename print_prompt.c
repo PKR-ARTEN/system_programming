@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "color_header.h"
+#include "txt_opt_header.h"
 
 void print_prompt() {	
 
@@ -14,6 +14,6 @@ void print_prompt() {
 	user_name  = (char*)getenv("USER");
 	gethostname(host_name, sizeof(host_name));
 
-	printf(ANSI_COLOR_YELLOW "%s@%s:"	ANSI_COLOR_RED "%s $" ANSI_COLOR_RESET " ", user_name, host_name, dir);
+	printf(ANSI_BOLD_TEXT ANSI_COLOR_YELLOW "%s@%s:"	ANSI_COLOR_CYAN "%s $" ANSI_COLOR_RESET ANSI_RESET_TEXT " ", user_name, host_name, dir);
 
 }
