@@ -104,6 +104,7 @@ int main(){
 
 				default :
 					if(!background) (void)waitpid(pid, &status, 0);
+					else printf("[pid] %d\n", getppid());
 					break;
 			}
 		}
