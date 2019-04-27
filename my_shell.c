@@ -10,7 +10,7 @@ void get_command(); //separate the command to type and path
 void m_mkdir();
 void m_cat();
 void m_cd();
-void m_rmdir();
+void m_rm();
 
 int main(){
 
@@ -19,7 +19,7 @@ int main(){
 	char *mkdir = "mkdir";
 	char *cat = "cat";
 	char *cd = "cd";
-	char *rmdir = "rmdir";
+	char *rm = "rm";
 
 	char *hello1 = "hello";
 	char *hello2 = "hello?";
@@ -57,17 +57,19 @@ int main(){
 			m_cat(command_p);
 		} else if(strcmp(command_t, cd)==0){
 			m_cd(command_p);
-		} else if(strcmp(command_t, rmdir)==0){
-			m_rmdir(command_p);
+		} else if(strcmp(command_t, rm)==0){
+			m_rm(command_p);
 		} else if(strcmp(command_t, help1)==0 || strcmp(command_t, help2)==0){
 			printf("ls - show content of this directory\n");
 			printf("ls [path] - show content of path\n");
-			printf("mkdir [directory name] - create directory\n");
-			printf("rmdir [directory name] - delete directory\n");
-			printf("cat [filename] - show content of file\n");
+			printf("mkdir [directory name] [name2] ... - create directory\n");
+			printf("rm [directory name or file name] [name2] ... - delete directory or file\n");
+			printf("\t -r delete all, including non-empty directories\n");
+			printf("\t -d delete only directory\n");
+			printf("\t -f delete only file\n");
 			printf("cat [file1] [file2] ... - show content of files\n");
 			printf("cd [path] - change directory\n");
-			printf("cls or clear - clear window\b");
+			printf("cls or clear - clear window\n");
 			printf("hello?\n");
 			printf("exit - close this shell\n");
 		} else {

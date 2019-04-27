@@ -6,31 +6,25 @@
 #include <fcntl.h>
 #include <string.h>
 
+#include "txt_opt_header.h"
+
 #define BUF_SIZE 2048
 
 static void die(const char *s);
 static void do_cat(const char *s);
+int get_path();
 
 void m_cat(char *original){
-	char *path;
-	char *token;
+	char *path[50];
+	int n;
 	
-	if(original == NULL) {
-		printf("please input file name or path\n");
-	} else {
+	if((n=get_path(original, &path))==0) {
+		printf(ANSI_COLOR_RED "please input file name or path" ANSI_COLOR_RESET "\n");
+		return;
+	} 
 
-		while(1) {
-			path = original;
-			token = strchr(original, ' ');
-			if(token == NULL) {
-				do_cat(path);
-				break;
-			} else {
-				original = token+1;
-				*token = '\0';
-				do_cat(path);
-			}
-		}
+	for(int i=0; i<n; i++){
+		do_cat(path[i]);
 	}
 }
 
@@ -39,12 +33,12 @@ static void do_cat(const char *path){
 	unsigned char  buf[BUF_SIZE];
 
 	fd=open(path, O_RDONLY);
-	if(fd <0) printf("please input correct file name or path\n");
+	if(fd <0) printf(ANSI_COLOR_RED "please input correct file name or path" ANSI_COLOR_RESET "\n");
 	else {
 		for(;;){
 			n = read(fd,buf,sizeof(buf));
 			if(n<0) {
-				printf("error in read file\n");
+				printf(ANSI_COLOR_RED "error in reading file" ANSI_COLOR_RESET "\n");
 				break;
 			}
 			if(n==0) break;
