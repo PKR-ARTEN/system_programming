@@ -5,7 +5,8 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <string.h>
-#include "color_header.h"
+
+#include "txt_opt_header.h"
 
 void m_ls(char *path){
 	DIR *d;
@@ -31,7 +32,7 @@ void m_ls(char *path){
 
 		if(strcmp(dir,"..")!=0 && strcmp(dir, ".")!=0){
 			if(S_ISDIR(buf.st_mode)){
-				printf(ANSI_COLOR_BLUE "%s" ANSI_COLOR_RESET "\t\t",dir);
+				printf(ANSI_BOLD_TEXT ANSI_COLOR_BLUE "%s" ANSI_COLOR_RESET ANSI_RESET_TEXT "\t\t",dir);
 			} else{
 				printf("%s\t\t", dir);
 			}
