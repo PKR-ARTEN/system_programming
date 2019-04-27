@@ -1,7 +1,7 @@
 CC=gcc
 
 TARGET = my_shell
-OBJECTS = my_shell.o print_prompt.o m_ls.o get_command.o m_mkdir.o m_cat.o
+OBJECTS = extern_variables.o my_shell.o print_prompt.o m_ls.o get_command.o m_mkdir.o m_cat.o m_cd.o
 
 all : $(TARGET)
 
