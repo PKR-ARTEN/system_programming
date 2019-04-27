@@ -6,18 +6,21 @@ void print_prompt();
 void m_ls();
 void get_command(); //separate the command to type and path
 void m_mkdir();
+void m_cat();
 
 int main(){
 
 	char *e = "exit";
 	char *ls = "ls";
 	char *mkdir = "mkdir";
+	char *cat = "cat";
 	char *hello = "hello";
 	char *help1 = "help";
 	char *help2 = "-h";
 
 	char *command_t; //command_type
 	char *command_p; //command_path
+	char *command_o; //command_original
 
 	system("clear");
 
@@ -25,7 +28,7 @@ int main(){
 
 		print_prompt();
 
-		get_command(&command_t, &command_p);
+		get_command(&command_t, &command_p, &command_o);
 
 		if(strcmp(command_t, e)==0){
 			system("clear");
@@ -37,6 +40,8 @@ int main(){
 		} else if(strcmp(command_t, mkdir)==0){
 			printf("make directory\n");
 			m_mkdir(command_p);
+		} else if(strcmp(command_t, cat)==0){
+			m_cat(command_p);
 		} else if(strcmp(command_t, help1)==0 || strcmp(command_t, help2)==0){
 			printf("ls - show content of this folder\n");
 			printf("ls [path] - show content of path\n");
