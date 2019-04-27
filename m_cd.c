@@ -18,7 +18,7 @@ void m_cd(char *change_path){
 				if(strcmp(change_path, "..")==0){
 					token=strrchr(dir, '/');
 					*token='\0';
-				} else {
+				} else if(strcmp(change_path, ".") !=0){
 					strcat(dir, "/");
 					strcat(dir, change_path);
 				}
