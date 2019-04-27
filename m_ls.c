@@ -34,9 +34,9 @@ void m_ls(char *path){
 
 		if(strcmp(dir,"..")!=0 && strcmp(dir, ".")!=0){
 			if(S_ISDIR(buf.st_mode)){
-				printf(ANSI_BOLD_TEXT ANSI_COLOR_BLUE "%s" ANSI_COLOR_RESET ANSI_RESET_TEXT "\t\t",dir);
+				printf(ANSI_BOLD_TEXT ANSI_COLOR_BLUE "%-25s" ANSI_COLOR_RESET ANSI_RESET_TEXT,dir);
 			} else{
-				printf("%s\t\t", dir);
+				printf("%-25s", dir);
 			}
 			n++;
 		}
