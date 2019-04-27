@@ -11,7 +11,7 @@ void m_ls(char *path){
 	DIR *d;
 	struct dirent *ent;
 
-	printf("show directory. Blue is directory.\n\n");
+	printf("show directory.\n\n");
 
 
 	if(path==NULL){
