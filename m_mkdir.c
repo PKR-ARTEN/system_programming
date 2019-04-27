@@ -9,11 +9,30 @@
 #include "txt_opt_header.h"
 
 static void die(const char *s);
+int make_directory();
+int get_path();
 
-void m_mkdir(const char *path){
+void m_mkdir(char *path){
+	char *name[50];
+	int n;
+
+	if((n=get_path(path, &name))==0){
+		printf(ANSI_COLOR_RED "please input directory name" ANSI_COLOR_RESET "\n");
+		return;
+	}
+
+	for(int i=0; i<n; i++){
+		if(make_directory(name[i])<0){
+			printf(ANSI_COLOR_RED "%s : error in make directory" ANSI_COLOR_RESET "\n", name[i]);
+		} else {
+			printf(ANSI_COLOR_GREEN "%s : successully make directory" ANSI_COLOR_RESET "\n", name[i]);
+		}
+	}
+}
+
+int make_directory(const char *path){
 	if(mkdir(path, 0755)==0){
-		printf(ANSI_COLOR_GREEN "%s was created successfully" ANSI_COLOR_RESET "\n", path);
-		return ;
+		return 0;
 	}
 	else{
 		if(errno == EEXIST){
@@ -23,7 +42,7 @@ void m_mkdir(const char *path){
 				printf("[%s] is not a directory\n", path);
 			}
 	
-			return;
+			return -1;
 		}
 		else if(errno == ENOENT){
 			char *parent_path = strdup(path);
@@ -36,26 +55,25 @@ void m_mkdir(const char *path){
 	
 			if(strcmp(parent_path,"/") == 0){
 				fprintf(stderr, "error: root directory is not a directory???\n");
-				return;
+				return -1;
 			}
 	
 			char *sep=strrchr(parent_path, '/');
 			if(!sep){
 				fprintf(stderr, "error:current directory is not a directory???\n");
-				return;
+				return -1;
 			}
 			else 
 			if(sep==parent_path){
 				fprintf(stderr, "error: root directory is not a directory???\n");
-				return;
+				return -1;
 			}
 			
 			*sep='\0';
-			m_mkdir(parent_path);
+			if(make_directory(parent_path)<0) return -1;
 			mkdir(path,0744);
-			printf(ANSI_COLOR_GREEN "%s was created successfully" ANSI_COLOR_RESET "\n", path);
-
-			return;
+		
+			return 0;
 		}
 		else{
 			perror(path);
