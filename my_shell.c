@@ -67,7 +67,7 @@ int main(){
 			printf("cat [filename] - show content of file\n");
 			printf("cat [file1] [file2] ... - show content of files\n");
 			printf("cd [path] - change directory\n");
-			printf("cls or clear - clear window\b");
+			printf("cls or clear - clear window\n");
 			printf("hello?\n");
 			printf("exit - close this shell\n");
 		} else {
