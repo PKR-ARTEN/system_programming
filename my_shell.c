@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <signal.h>
 
 #include "txt_opt_header.h"
 
@@ -107,8 +108,10 @@ int main(){
 					break;
 
 				default :
+					sighold(SIGINT);
 					if(!background) (void)waitpid(pid, &status, 0);
 					else printf("[pid] %d\n", pid);
+					sighold(SIGINT);
 					break;
 			}
 		}
