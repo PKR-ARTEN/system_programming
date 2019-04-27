@@ -9,9 +9,7 @@
 static void die(const char *s);
 
 void m_mkdir(const char *path){
-	//printf("current %s\n", path);
-	//mkdir(path, 0777);
-	if(mkdir(path, 0777)==0){
+	if(mkdir(path, 0755)==0){
 		return ;
 	}
 	else{
@@ -52,7 +50,7 @@ void m_mkdir(const char *path){
 			
 			*sep='\0';
 			m_mkdir(parent_path);
-			mkdir(path,0777);
+			mkdir(path,0744);
 			
 			return;
 		}
