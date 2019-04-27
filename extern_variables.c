@@ -1,1 +1,1 @@
-extern char dir[1000]="";
+extern char dir[1000]="~";

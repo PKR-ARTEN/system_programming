@@ -7,6 +7,7 @@ void m_ls();
 void get_command(); //separate the command to type and path
 void m_mkdir();
 void m_cat();
+void m_cd();
 
 int main(){
 
@@ -14,6 +15,7 @@ int main(){
 	char *ls = "ls";
 	char *mkdir = "mkdir";
 	char *cat = "cat";
+	char *cd = "cd";
 	char *hello1 = "hello";
 	char *hello2 = "hello?";
 	char *help1 = "help";
@@ -43,12 +45,16 @@ int main(){
 			m_mkdir(command_p);
 		} else if(strcmp(command_t, cat)==0){
 			m_cat(command_p);
+		} else if(strcmp(command_t, cd)==0){
+			printf("change directory\n");
+			m_cd(command_p);
 		} else if(strcmp(command_t, help1)==0 || strcmp(command_t, help2)==0){
 			printf("ls - show content of this folder\n");
 			printf("ls [path] - show content of path\n");
 			printf("mkdir [foldername] - create folder\n");
 			printf("cat [filename] - show content of file\n");
 			printf("cat [file1] [file2] ... - show content of files\n");
+			printf("cd [path] - change directory\n");
 			printf("hello?\n");
 			printf("exit - close this shell\n");
 		} else {
