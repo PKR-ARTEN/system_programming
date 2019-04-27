@@ -12,19 +12,21 @@ void m_ls(char *path){
 	DIR *d;
 	struct dirent *ent;
 
-	printf("show directory.\n\n");
-
-
 	if(path==NULL){
 		path=".";
 	}
 	
 	d = opendir(path);
 	if(!d){
-		perror(path);
-		exit(1);
+		printf(ANSI_COLOR_RED "no such file or a directory" ANSI_COLOR_RESET "\n");
+		return;
 	}
+
 	int n=0;
+	
+	if(strcmp(path, ".")==0) printf(ANSI_COLOR_GREEN "show content of this directory" ANSI_COLOR_RESET "\n\n");
+	else printf(ANSI_COLOR_GREEN "show content of " ANSI_ITALIC_TEXT " %s" ANSI_RESET_TEXT ANSI_COLOR_RESET "\n\n", path);
+	
 	while(ent = readdir(d)){
 		char *dir = ent->d_name;
 		struct stat buf;

@@ -6,10 +6,13 @@
 #include <string.h>
 #include <errno.h>
 
+#include "txt_opt_header.h"
+
 static void die(const char *s);
 
 void m_mkdir(const char *path){
 	if(mkdir(path, 0755)==0){
+		printf(ANSI_COLOR_GREEN "%s was created successfully" ANSI_COLOR_RESET "\n", path);
 		return ;
 	}
 	else{
@@ -17,8 +20,7 @@ void m_mkdir(const char *path){
 			struct stat st;
 			if(stat(path, &st) < 0) die("stat");
 			if(!S_ISDIR(st.st_mode)){
-				fprintf(stderr, "file sxists but is not a directory : %s\n", path);
-				exit(1);
+				printf("[%s] is not a directory\n", path);
 			}
 	
 			return;
@@ -34,24 +36,25 @@ void m_mkdir(const char *path){
 	
 			if(strcmp(parent_path,"/") == 0){
 				fprintf(stderr, "error: root directory is not a directory???\n");
-				exit(1);
+				return;
 			}
 	
 			char *sep=strrchr(parent_path, '/');
 			if(!sep){
 				fprintf(stderr, "error:current directory is not a directory???\n");
-				exit(1);
+				return;
 			}
 			else 
 			if(sep==parent_path){
 				fprintf(stderr, "error: root directory is not a directory???\n");
-				exit(1);
+				return;
 			}
 			
 			*sep='\0';
 			m_mkdir(parent_path);
 			mkdir(path,0744);
-			
+			printf(ANSI_COLOR_GREEN "%s was created successfully" ANSI_COLOR_RESET "\n", path);
+
 			return;
 		}
 		else{
