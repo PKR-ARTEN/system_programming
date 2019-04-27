@@ -15,6 +15,7 @@ void m_cd();
 void m_rm();
 void m_cp();
 void m_execute();
+void m_kill();
 
 int main(){
 
@@ -31,6 +32,7 @@ int main(){
 
 	char *vim = "vim";
 	char *execute = "./";
+	char *kill = "kill";
 	char *clear1 = "clear";
 	char *clear2 = "cls";
 	char *help1 = "help";
@@ -74,6 +76,8 @@ int main(){
 						m_execute(command_t, command_p);
 					} else if(strcmp(command_t, cp)==0){
 						m_cp(command_p);
+					} else if(strcmp(command_t, kill)==0){
+						m_kill(atoi(command_p));
         			} else if(strcmp(command_t, hello1)==0 || strcmp(command_t, hello2)==0){
             			printf("hello!\n");
         			} else if(strcmp(command_t, mkdir)==0){
@@ -104,7 +108,7 @@ int main(){
 
 				default :
 					if(!background) (void)waitpid(pid, &status, 0);
-					else printf("[pid] %d\n", getppid());
+					else printf("[pid] %d\n", pid);
 					break;
 			}
 		}
