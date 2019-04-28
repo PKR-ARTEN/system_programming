@@ -20,8 +20,8 @@ void m_rm(char *original){
 		return;
 	}
 
-	if(strcmp(path[0], "-r")==0){
-		if(strcmp(path[1], "-d")==0){
+	if(strcmp(path[0], "-r")==0){	
+		if(strcmp(path[1], "-d")==0){	//option is -r -d
 			for(int i=2; i<n; i++){
 				struct stat sb;
 				stat(path[i], &sb);
@@ -35,7 +35,7 @@ void m_rm(char *original){
 					printf(ANSI_COLOR_RED "%s : this is not a directory" ANSI_COLOR_RESET "\n", path[i]);
 				}
 			}
-		} else {
+		} else {	//option is -r
 			for(int i=1; i<n; i++){
             	struct stat sb;
             	stat(path[i], &sb);
@@ -55,9 +55,21 @@ void m_rm(char *original){
         	}
 		}
 	} else if(strcmp(path[0], "-d")==0){
-		if(strcmp(path[1], "-r")==0){
-		
-		} else{
+		if(strcmp(path[1], "-r")==0){	//option is -d -r
+			for(int i=2; i<n; i++){
+                struct stat sb;
+                stat(path[i], &sb);
+                if(S_ISDIR(sb.st_mode)){
+                    if(remove_directory(path[i])<0){
+                        printf(ANSI_COLOR_RED "%s : this directory was using or not empty, or please check directory name is correct" ANSI_COLOR_RESET "\n", path[i]);
+                    } else {
+                        printf(ANSI_COLOR_GREEN "%s : successfully removed" ANSI_COLOR_RESET "\n", path[i]);
+                    }
+                } else {
+                    printf(ANSI_COLOR_RED "%s : this is not a directory" ANSI_COLOR_RESET "\n", path[i]);
+                }
+            }
+		} else{		//option is -d
 			for(int i=1; i<n; i++){
 				struct stat sb;
 				stat(path[i], &sb);
@@ -73,7 +85,7 @@ void m_rm(char *original){
 			}
 		}
 		
-	} else if(strcmp(path[0], "-f")==0){
+	} else if(strcmp(path[0], "-f")==0){	//option is -f
 		for(int i=1; i<n; i++){
             struct stat sb;
             stat(path[i], &sb);
@@ -87,7 +99,7 @@ void m_rm(char *original){
                 }
             }
         }
-	} else{
+	} else{	//there is no option
 		for(int i=0; i<n; i++){
 			struct stat sb;
 			stat(path[i], &sb);
@@ -108,7 +120,7 @@ void m_rm(char *original){
 	}
 }
 
-int m_rm2(char *path){
+int m_rm2(char *path){	//for m_mv()
 	struct stat sb;
 	stat(path, &sb);
 
@@ -125,7 +137,7 @@ int m_rm2(char *path){
 	return 0;
 }
 
-int remove_directory(const char *path){
+int remove_directory(const char *path){	//remove directory with content of directory
 	DIR *d = opendir(path);
 	size_t path_len = strlen(path);
 	int r = -1;

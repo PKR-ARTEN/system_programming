@@ -1,3 +1,6 @@
+//this function do copy file or directory
+//input original path and destination path
+
 #include <stdio.h>
 #include <sys/types.h>
 #include <fcntl.h>
@@ -23,8 +26,7 @@ void m_cp(char *path){
 	}
 
 	if(S_ISDIR(get_st_mode(list[0]))){
-		int nnn = dir_copy(list[0], list[1]);
-		if(nnn < 0) printf(ANSI_COLOR_RED "error in copy" ANSI_COLOR_RESET "\n");
+		if(dir_copy(list[0],list[1]) < 0) printf(ANSI_COLOR_RED "error in copy" ANSI_COLOR_RESET "\n");
 		else printf(ANSI_COLOR_GREEN "copy successfully" ANSI_COLOR_RESET"\n");
 	} else {
 		if(file_copy(list[0],list[1])<0) printf(ANSI_COLOR_RED "error in copy" ANSI_COLOR_RESET "\n");
@@ -32,6 +34,9 @@ void m_cp(char *path){
 	}
 }
 
+//copy direction
+//if success, return value is 0
+//if fail, return value is -1
 int dir_copy(char *original, char *direction){
 	DIR *dir_info=NULL;
 	struct dirent *dir_entry=NULL;
@@ -45,9 +50,11 @@ int dir_copy(char *original, char *direction){
 
 	while((dir_entry=readdir(dir_info)) != NULL) {
 		mkdir(direction, get_st_mode(original));
+
 		if((strcmp(dir_entry->d_name, ".") ==0) || strcmp(dir_entry->d_name, "..")==0) continue;
 		sprintf(filepath, "%s/%s", original, dir_entry->d_name);
 		sprintf(newfilepath, "%s/%s", direction, dir_entry->d_name);
+
 		if(S_ISDIR(get_st_mode(filepath))){
 			mkdir(direction, get_st_mode(filepath));
 			if(dir_copy(filepath, newfilepath)<0) check_error=-1;
@@ -61,6 +68,9 @@ int dir_copy(char *original, char *direction){
 	return check_error;
 }
 
+//copy file
+//if success, return value is 0
+//if fail, return value is -1
 int file_copy(char *filename, char *newfilename){
 
 	FILE *f;

@@ -1,3 +1,6 @@
+//this function do read file and print in console
+//input is file name list
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h> 
@@ -10,7 +13,6 @@
 
 #define BUF_SIZE 2048
 
-static void die(const char *s);
 static void do_cat(const char *s);
 int get_path();
 
@@ -18,7 +20,7 @@ void m_cat(char *original){
 	char *path[50];
 	int n;
 	
-	if((n=get_path(original, &path))==0) {
+	if((n=get_path(original, &path))==0) {	//if n=0, there is no name
 		printf(ANSI_COLOR_RED "please input file name or path" ANSI_COLOR_RESET "\n");
 		return;
 	} 
@@ -42,14 +44,15 @@ static void do_cat(const char *path){
 				break;
 			}
 			if(n==0) break;
-			if(write(STDOUT_FILENO, buf, n)<0) die (path);
+			if(write(STDOUT_FILENO, buf, n)<0){
+				printf(ANSI_COLOR_RED "error in writing file" ANSI_COLOR_RESET "\n");
+				break;
+			}
 		}
 
-		if(close(fd) < 0) die(path);
+		if(close(fd) < 0) {
+			printf(ANSI_COLOR_RED "error occure while close file" ANSI_COLOR_RESET "\n");
+			return;
+		}
 	}
-}
-
-static void die(const char *s){
-	perror(s);
-	exit(1);
 }

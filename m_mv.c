@@ -1,3 +1,5 @@
+//this function do copy original to destination and remove original
+
 #include <stdio.h>
 #include <sys/types.h>
 #include <fcntl.h>
