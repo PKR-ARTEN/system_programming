@@ -1,3 +1,5 @@
+//this function kill process
+
 #include <stdio.h>
 #include <unistd.h>
 #include <signal.h>

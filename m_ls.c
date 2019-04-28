@@ -1,3 +1,5 @@
+//this function show content of directory
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -12,9 +14,7 @@ void m_ls(char *path){
 	DIR *d;
 	struct dirent *ent;
 
-	if(path==NULL){
-		path=".";
-	}
+	if(path==NULL) path=".";
 	
 	d = opendir(path);
 	if(!d){
@@ -33,11 +33,8 @@ void m_ls(char *path){
 		stat(dir, &buf);
 
 		if(strcmp(dir,"..")!=0 && strcmp(dir, ".")!=0){
-			if(S_ISDIR(buf.st_mode)){
-				printf(ANSI_BOLD_TEXT ANSI_COLOR_BLUE "%-25s" ANSI_COLOR_RESET ANSI_RESET_TEXT,dir);
-			} else{
-				printf("%-25s", dir);
-			}
+			if(S_ISDIR(buf.st_mode)) printf(ANSI_BOLD_TEXT ANSI_COLOR_BLUE "%-25s" ANSI_COLOR_RESET ANSI_RESET_TEXT,dir);
+			else printf("%-25s", dir);
 			n++;
 		}
 

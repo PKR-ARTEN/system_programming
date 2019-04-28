@@ -8,7 +8,6 @@
 
 #include "txt_opt_header.h"
 
-static void die(const char *s);
 int make_directory();
 int get_path();
 
@@ -22,31 +21,24 @@ void m_mkdir(char *path){
 	}
 
 	for(int i=0; i<n; i++){
-		if(make_directory(name[i])<0){
-			printf(ANSI_COLOR_RED "%s : error in make directory" ANSI_COLOR_RESET "\n", name[i]);
-		} else {
-			printf(ANSI_COLOR_GREEN "%s : successully make directory" ANSI_COLOR_RESET "\n", name[i]);
-		}
+		if(make_directory(name[i])<0) printf(ANSI_COLOR_RED "%s : error in make directory" ANSI_COLOR_RESET "\n", name[i]);
+		else printf(ANSI_COLOR_GREEN "%s : successully make directory" ANSI_COLOR_RESET "\n", name[i]);
 	}
 }
 
 int make_directory(const char *path){
-	if(mkdir(path, 0755)==0){
-		return 0;
-	}
+	if(mkdir(path, 0755)==0) return 0;
 	else{
 		if(errno == EEXIST){
 			struct stat st;
-			if(stat(path, &st) < 0) die("stat");
-			if(!S_ISDIR(st.st_mode)){
-				printf("[%s] is not a directory\n", path);
-			}
+			if(stat(path, &st) < 0) return -1;
+			if(!S_ISDIR(st.st_mode)) printf("[%s] is not a directory\n", path);
 	
 			return -1;
 		}
 		else if(errno == ENOENT){
 			char *parent_path = strdup(path);
-			if(!parent_path) die("strdup");
+			if(!parent_path) return -1;
 
 			char *last=parent_path+strlen(parent_path)-1;
 			while(*last=='/' && last != parent_path){
@@ -75,14 +67,7 @@ int make_directory(const char *path){
 		
 			return 0;
 		}
-		else{
-			perror(path);
-			exit(1);
-		}
-	}
-}
 
-static void die(const char *s){
-	perror(s);
-	exit(1);
+		else return -1;
+	}
 }
