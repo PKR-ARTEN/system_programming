@@ -8,6 +8,9 @@ The HW is make my own shell
 ## how execute this shell
 ![0](https://github.com/PKR-ARTEN/system_programming/blob/master/image%20for%20readme/%EC%BA%A1%EC%B2%98.PNG)
 
+## prompt form
+username@hostname:path $
+
 ## features
 * ls
 
