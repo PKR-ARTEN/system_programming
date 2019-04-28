@@ -47,7 +47,7 @@ if you give -f option, delete only file.
 
 //in test
 
-![11](https://github.com/PKR-ARTEN/system_programming/blob/master/image%20for%20readme/%EC%BA%A1%EC%B2%911.PNG)
+![11](https://github.com/PKR-ARTEN/system_programming/blob/master/image%20for%20readme/%EC%BA%A1%EC%B2%9811.PNG)
 
 * kill process
 
