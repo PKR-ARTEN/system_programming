@@ -1,3 +1,6 @@
+//this function do change directory
+//input is destination path
+
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
@@ -24,11 +27,11 @@ void m_cd(char *change_path){
 	}
 
 	printf(ANSI_COLOR_GREEN "change directory successfully"ANSI_COLOR_RESET "\n");
-	if(strcmp(change_path, "..")==0){
+	if(strcmp(change_path, "..")==0) {
 		token=strrchr(dir, '/');
-		*token='\0';
-	} else if(strcmp(change_path, ".") !=0){
+		*token='\0';				//delete current directory for print
+	} else if(strcmp(change_path, ".")!=0){
 		strcat(dir, "/");
-		strcat(dir, change_path);
+		strcat(dir, change_path);	//add change path to dir for print
 	}	
 }
